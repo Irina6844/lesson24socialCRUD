@@ -1,22 +1,22 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { SocialAPI } from "../../../api/api";
+
 import { Box } from "@mui/material";
 import { UsersList } from "../../organisms/UsersList/UsersList";
+import { userThunkCreator } from "../../../store/reducers/usersReducer";
 
 export const Users = () => {
   const dispatch = useDispatch();
-  const { users } = useSelector((state) => state.usersData);
+  const { users, currentPage, isLoading } = useSelector(
+    (state) => state.usersData
+  );
 
   useEffect(() => {
-    SocialAPI.getUsers(dispatch);
+    dispatch(userThunkCreator());
   }, []);
 
   return (
-    <Box>
-        <UsersList users={users}/>
-    </Box>
-  )
- 
+    <Box>{isLoading ? <h1>Loading...</h1> : <UsersList users={users} />}</Box>
+  );
 };
