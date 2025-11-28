@@ -13,8 +13,8 @@ export const Users = () => {
   );
 
   useEffect(() => {
-    dispatch(userThunkCreator());
-  }, []);
+    dispatch(userThunkCreator(currentPage));
+  }, [currentPage]);
 
   return (
     <Box>{isLoading ? <h1>Loading...</h1> : <UsersList users={users} />}</Box>

@@ -5,8 +5,12 @@ const instance = axios.create({
 });
 
 const SocialAPI = {
-  getUsers() {
-    return instance.get(`/users?count=100&page=1`);
+  getUsers(page = 1) {
+    return instance.get(`/users?count=100&page=${page}`);
+  },
+
+  login(body) {
+    return instance.post("/auth/login", body);
   },
 };
 
