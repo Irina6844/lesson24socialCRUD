@@ -26,7 +26,7 @@ export default function UserCard({ user }) {
         <Button variant="contained" size="small">
           Follow
         </Button>
-        <Button component={NavLink} to={"/"} variant="contained" size="small">
+        <Button component={NavLink} to={`/users/profile/${user.id}`} variant="contained" size="small">
           View Profile
         </Button>
       </CardActions>

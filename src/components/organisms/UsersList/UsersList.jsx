@@ -1,12 +1,12 @@
 import React from "react";
-import { Box } from "@mui/material";
+import { Box, Pagination } from "@mui/material";
 import UserCard from "../../molecules/UserCard/UserCard";
 import { useDispatch, useSelector } from "react-redux";
 import { changePageAC } from "../../../store/reducers/usersReducer";
 
 export const UsersList = ({ users }) => {
   const dispatch = useDispatch();
-  const { totalUsersCount } = useSelector((state) => state.usersData);
+  const { totalUsersCount, currentPage } = useSelector((state) => state.usersData);
 
   let pageCount = Math.ceil(totalUsersCount / 100);
 
@@ -15,14 +15,29 @@ export const UsersList = ({ users }) => {
   for (let i = 1; i <= pageCount; i++) {
     pages.push(i);
   }
-  console.log(pages);
+
+  const changePage = (e, newPage) => {
+    dispatch(changePageAC(newPage))
+  }
 
   return (
     <Box>
-      {pages.map((p) => (
-        <button onClick={() => dispatch(changePageAC(p))}
-         style={{ padding: "5px", borderRadius: "10px" }}>{p}</button>))}
+      <Box sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        mb: '30px'
+      }}>
 
+
+
+
+       
+        
+
+        <Pagination onChange={changePage} defaultPage={currentPage} count={pageCount} color="secondary" />
+
+      </Box>
       <Box
         sx={{
           display: "flex",

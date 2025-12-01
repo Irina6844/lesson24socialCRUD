@@ -12,6 +12,9 @@ const SocialAPI = {
   login(body) {
     return instance.post("/auth/login", body);
   },
+  getProfile(userId){
+    return instance.get(`/profile/${userId}`)
+  }
 };
 
 export { SocialAPI };

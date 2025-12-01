@@ -7,6 +7,7 @@ import { UsersList } from "../../organisms/UsersList/UsersList";
 import { userThunkCreator } from "../../../store/reducers/usersReducer";
 
 export const Users = () => {
+
   const dispatch = useDispatch();
   const { users, currentPage, isLoading } = useSelector(
     (state) => state.usersData

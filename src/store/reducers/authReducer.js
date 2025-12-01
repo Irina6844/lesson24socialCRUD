@@ -8,7 +8,7 @@ const initState = {
 };
 
 const authReducer = (state = initState, action) => {
-  switch (action.cas) {
+  switch (action.type) {
     case LOGIN:
       return {
         ...state,
@@ -20,16 +20,17 @@ const authReducer = (state = initState, action) => {
   }
 };
 
-const loginAC = (data) => ({type:LOGIN, payload:data})
+const loginAC = (data) => ({ type: LOGIN, payload: data })
 
 
-export const loginThunk =(body) => {
-return (dispatch) => {
-SocialAPI.login(body)
-.then((res) =>{
-    dispatch(loginAC(res.data.data.userId))
-} )
-}
+export const loginThunk = (body) => {
+  return (dispatch) => {
+    SocialAPI.login(body)
+      .then((res) => {
+        dispatch(loginAC(res.data.data.userId))
+        localStorage.setItem('userId', res.data.data.userId)
+      })
+  }
 }
 
 export default authReducer;

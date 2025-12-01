@@ -1,17 +1,28 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { loginThunk } from "../../../store/reducers/authReducer";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { useLocalStorage } from "../../../shared/hooks/useLocalStorage";
+
 
 export const Home = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const userId = useLocalStorage()
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     let body = { email, password };
-    dispatch(loginThunk({email:"", password:'' }));
+
+    dispatch(loginThunk({ email: "", password: "" }));
   };
+
+  if (userId) {
+    return <Navigate to={`/users/profile/${userId}`} />
+  }
 
   return (
     <form onSubmit={handleSubmit}>
